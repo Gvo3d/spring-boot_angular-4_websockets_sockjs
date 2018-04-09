@@ -1,4 +1,4 @@
-package hello;
+package hello.config;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.context.annotation.Configuration;

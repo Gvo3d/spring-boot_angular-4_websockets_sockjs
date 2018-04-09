@@ -1,21 +1,17 @@
-package hello;
+package hello.controller;
 
+import hello.dto.Greeting;
+import hello.dto.HelloMessage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.messaging.MessageHeaders;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.messaging.simp.SimpMessageType;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.session.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.context.request.RequestContextHolder;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.security.Principal;
 
 @Controller
 public class GreetingController {
@@ -26,10 +22,9 @@ public class GreetingController {
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
-    public Greeting greeting1(HelloMessage message, HttpSession session) throws Exception {
+    public Greeting greeting1(HelloMessage message) throws Exception {
         System.out.println("Invoked: greeting1");
-        System.out.println("Session: "+ session);
-//        System.out.println("Session id: "+getSessionId());
+        System.out.println("Session id: "+getSessionId());
         Thread.sleep(1000); // simulated delay
         return new Greeting("Hello, " + message.getName() + "!");
     }
@@ -50,7 +45,7 @@ public class GreetingController {
         return headerAccessor.getMessageHeaders();
     }
 
-//    private String getSessionId(){
-//        return RequestContextHolder.currentRequestAttributes().getSessionId();
-//    }
+    private String getSessionId(){
+        return RequestContextHolder.currentRequestAttributes().getSessionId();
+    }
 }
