@@ -19,9 +19,18 @@ export class MessageService {
     this.stompClient = stompjs.over(socket);
     this.stompClient.connect('', '', (frame: Frame) => {
       console.log('CONNECT CONNECT');
+      console.log("Frame:"+frame);
+
       this.stompClient.subscribe('/topic/greetings', (message: Message) => {
+        console.log(message)
         this.onMessage(message);
       });
+
+      this.stompClient.subscribe('/queue/reply', (message: Message) => {
+        console.log("/queue/reply")
+        this.onMessage(message);
+      });
+
     });
   }
 

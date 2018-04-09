@@ -29,6 +29,10 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   onClickMe(): void {
-    this.messageService.stompClient.send("/app/hello", {}, "{\"name\":\"fucker\"}" )
+    this.messageService.stompClient.send("/app/hello", {}, "{\"name\":\"hello\"}" )
+  }
+
+  onClickMe2(): void {
+    this.messageService.stompClient.send("/user/private", {}, "{\"name\":\"private\"}" )
   }
 }
