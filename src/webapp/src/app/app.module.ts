@@ -1,10 +1,13 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
+import {BrowserModule} from '@angular/platform-browser';
+import {RoutingModule} from "./static/routing.module";
+import {NgModule} from '@angular/core';
+import {FormsModule} from '@angular/forms';
+import {HttpModule} from '@angular/http';
 
-import { AppComponent } from './app.component';
-import {MessageService} from "./message.service";
+import {AppComponent} from './components/firstpage/app.component';
+import {WebsocketService} from "./services/websocket.service";
+import {RestService} from "./services/rest.service";
+import {ApplicationService} from "./services/application.service";
 
 @NgModule({
   declarations: [
@@ -13,9 +16,15 @@ import {MessageService} from "./message.service";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    RoutingModule,
   ],
-  providers: [MessageService],
+  providers: [
+    WebsocketService,
+    RestService,
+    ApplicationService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

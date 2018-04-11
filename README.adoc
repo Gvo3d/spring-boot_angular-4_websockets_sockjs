@@ -82,7 +82,7 @@ Next, you'll create a controller to receive the hello message and send a greetin
 
 == Create a message-handling controller
 
-In Spring's approach to working with STOMP messaging, STOMP messages can be routed to {AtController}[`@Controller`] classes. For example the `GreetingController` is mapped to handle messages to destination "/hello".
+In Spring's approach to working with STOMP messaging, STOMP messages can be routed to {AtController}[`@Controller`] classes. For example the `GreetingController` is mapped to handle messages to identity "/hello".
 
 `src/main/java/hello/GreetingController.java`
 [source,java]
@@ -92,7 +92,7 @@ include::complete/src/main/java/hello/GreetingController.java[]
 
 This controller is concise and simple, but there's plenty going on. Let's break it down step by step.
 
-The {AtMessageMapping}[`@MessageMapping`] annotation ensures that if a message is sent to destination "/hello", then the `greeting()` method is called.
+The {AtMessageMapping}[`@MessageMapping`] annotation ensures that if a message is sent to identity "/hello", then the `greeting()` method is called.
 
 The payload of the message is bound to a `HelloMessage` object which is passed into `greeting()`.
 
@@ -149,9 +149,9 @@ include::complete/src/main/resources/static/app.js[]
 
 The main piece of this JavaScript file to pay attention to is the `connect()` and `sendName()` functions.
 
-The `connect()` function uses https://github.com/sockjs[SockJS] and {Stomp_JS}[stomp.js] to open a connection to "/gs-guide-websocket", which is where our SockJS server is waiting for connections. Upon a successful connection, the client subscribes to the "/topic/greetings" destination, where the server will publish greeting messages. When a greeting is received on that destination, it will append a paragraph element to the DOM to display the greeting message.
+The `connect()` function uses https://github.com/sockjs[SockJS] and {Stomp_JS}[stomp.js] to open a connection to "/gs-guide-websocket", which is where our SockJS server is waiting for connections. Upon a successful connection, the client subscribes to the "/topic/greetings" identity, where the server will publish greeting messages. When a greeting is received on that identity, it will append a paragraph element to the DOM to display the greeting message.
 
-The `sendName()` function retrieves the name entered by the user and uses the STOMP client to send it to the "/app/hello" destination (where `GreetingController.greeting()` will receive it).
+The `sendName()` function retrieves the name entered by the user and uses the STOMP client to send it to the "/app/hello" identity (where `GreetingController.greeting()` will receive it).
 
 == Make the application executable
 
